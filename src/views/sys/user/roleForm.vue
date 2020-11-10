@@ -2,8 +2,8 @@
   <div class="app-container">
     <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
     <div style="margin: 15px 0;"></div>
-    <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
-        <el-checkbox v-for="city in cities" :label="city.id" :key="city.id">{{city.roleName}}</el-checkbox>
+    <el-checkbox-group v-model="checkedmenus" @change="handleCheckedmenusChange">
+        <el-checkbox v-for="menu in menus" :label="menu.id" :key="menu.id">{{menu.roleName}}</el-checkbox>
     </el-checkbox-group>
     <br/>
     <el-button :disabled="saveBtnDisabled" type="primary" @click="update">保存</el-button>
@@ -21,8 +21,8 @@ export default {
   data() {
       return {
         checkAll: false,
-        checkedCities: [], //已选中
-        cities: [], //所有的
+        checkedmenus: [], //已选中
+        menus: [], //所有的
         isIndeterminate: true,
         userId:'',
         saveBtnDisabled: false // 保存按钮是否禁用,
@@ -40,9 +40,10 @@ export default {
       },
       getById(userId){
           userApi.getAssign(userId).then(response => {
-              var jsonObj = response.data.assignRoles
-              this.checkedCities = this.getJsonToList(jsonObj,"id")
-              this.cities = response.data.allRolesList
+              var jsonObj = response.data.existsRoleList
+              this.menus = response.data.allRoleList
+              this.checkedmenus = this.getJsonToList(jsonObj,"id")
+              
           })
       },
       //把json数据转成string再转成对象，根据Key获取value数据
@@ -60,18 +61,19 @@ export default {
         
       },
       handleCheckAllChange(val) {
-        this.checkedCities = val ? this.cities : [];
+        this.checkedmenus = val ? this.menus : [];
         this.isIndeterminate = false;
       },
-      handleCheckedCitiesChange(value) {
+      handleCheckedmenusChange(value) {
       
         let checkedCount = value.length;
-        this.checkAll = checkedCount === this.cities.length;
-        this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length;
+        this.checkAll = checkedCount === this.menus.length;
+        this.isIndeterminate = checkedCount > 0 && checkedCount < this.menus.length;
       },
       update(){
         this.saveBtnDisabled = true // 防止表单重复提交
-        var ids = this.checkedCities.join(",")
+       // var ids = this.checkedmenus.join(",")
+         var ids = this.checkedmenus
         console.log(ids)
         //修改权限
         userApi.saveAssign(this.userId, ids).then(response => {

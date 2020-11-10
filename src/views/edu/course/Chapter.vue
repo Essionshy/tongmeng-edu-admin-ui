@@ -308,12 +308,12 @@ export default {
 
     prev() {
       const courseId = this.$route.params.id;
-      this.$router.push({ path: "/course/info/" + courseId });
+      this.$router.push({ path: "/edu/course/info/" + courseId });
     },
     next() {
       const courseId = this.$route.params.id;
       //跳转到Chapter页面
-      this.$router.push({ path: "/course/publish/" + courseId });
+      this.$router.push({ path: "/edu/course/publish/" + courseId });
     },
   },
 };

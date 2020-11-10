@@ -105,7 +105,7 @@ export default {
     fetchDataById(id) {
       roleApi.getById(id).then(response => {
         debugger
-        this.role = response.data.item
+        this.role = response.data.role
       })
     }
 

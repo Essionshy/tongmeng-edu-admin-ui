@@ -75,7 +75,7 @@ export default {
         id: "",
         name: "",
         sort: 1,
-        level: "",
+        level: 0,
         intro: "",
         career: "",
       },
@@ -137,7 +137,7 @@ export default {
         updateTeacher(this.teacher)
           .then((response) => {
             //跳转至讲师列表
-            this.$router.push({ path: "/teacher/list" });
+            this.$router.push({ path: "/edu/teacher/list" });
           })
           .catch((error) => {
             console.log(error);
@@ -152,7 +152,7 @@ export default {
               message:response.message
             });
             //跳转讲师列表          
-            this.$router.push({ path: "/teacher/list" });
+            this.$router.push({ path: "/edu/teacher/list" });
           })
           .catch((error) => {
             console.log(error);

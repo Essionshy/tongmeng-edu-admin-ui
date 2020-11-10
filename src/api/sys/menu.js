@@ -11,7 +11,7 @@ export default {
   },
   removeById(id) {
     return request({
-      url: `${api_name}/remove/${id}`,
+      url: `${api_name}/delete/${id}`,
       method: "delete"
     })
   },
@@ -35,11 +35,13 @@ export default {
       method: 'get'
     })
   },
-  doAssign(roleId, permissionId) {
+  doAssign(roleId, permissionIds) {
     return request({
-      url: `${api_name}/doAssign`,
+      url: `${api_name}/doAssign/${roleId}`,
       method: "post",
-      params: {roleId, permissionId}
+      data:permissionIds
+    
+       
     })
   }
 }

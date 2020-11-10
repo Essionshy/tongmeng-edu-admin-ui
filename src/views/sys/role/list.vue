@@ -42,15 +42,15 @@
       <el-table-column prop="roleName" label="角色名称" />
 
 
-      <el-table-column label="操作" width="200" align="center">
+      <el-table-column label="操作" width="400" align="center">
         <template slot-scope="scope">
           <router-link :to="'/sys/role/distribution/'+scope.row.id">
-            <el-button type="info" size="mini" icon="el-icon-info" v-if="hasPerm('role.sys')"></el-button>
+            <el-button type="info" size="mini" icon="el-icon-info" v-if="hasPerm('role.sys')">分配权限</el-button>
           </router-link>
           <router-link :to="'/sys/role/update/'+scope.row.id">
-            <el-button type="primary" size="mini" icon="el-icon-edit"  v-if="hasPerm('role.update')"></el-button>
+            <el-button type="primary" size="mini" icon="el-icon-edit"  v-if="hasPerm('role.update')">编辑</el-button>
           </router-link>
-          <el-button type="danger" size="mini" icon="el-icon-delete" @click="removeDataById(scope.row.id)" v-if="hasPerm('role.remove')"></el-button>
+          <el-button type="danger" size="mini" icon="el-icon-delete" @click="removeDataById(scope.row.id)" v-if="hasPerm('role.remove')">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -197,7 +197,7 @@ export default {
         if (response.success) {
           this.$message({
             type: 'success',
-            message: '删除成功!'
+            message: '成功删除'+response.data.count+'条记录!'
           })
         }
       }).catch(() => {

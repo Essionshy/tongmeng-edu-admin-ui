@@ -238,7 +238,7 @@ export default {
           //课程保存成功返回课程ID
           this.courseId = response.data.courseId;
           //跳转到第二步Chapter页面
-          this.$router.push({ path: "/course/chapter/" + this.courseId });
+          this.$router.push({ path: "/edu/course/chapter/" + this.courseId });
         })
         .catch((error) => {
           console.log(error);
@@ -254,7 +254,7 @@ export default {
           });
 
           //跳转到第二步Chapter页面
-          this.$router.push({ path: "/course/chapter/" + this.courseId });
+          this.$router.push({ path: "/edu/course/chapter/" + this.courseId });
         })
         .catch((error) => {
           console.log(error);

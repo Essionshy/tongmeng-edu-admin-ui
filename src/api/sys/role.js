@@ -41,13 +41,13 @@ export default {
       },
       removeById(id){
         return request({
-          url: `${api_name}/remove/${id}`,
+          url: `${api_name}/delete/${id}`,
           method: 'delete'
         })
       },
       removeRows(idList){
         return request({
-          url: `${api_name}/batchRemove`,
+          url: `${api_name}/delete/batch`,
           method: 'delete',
           data:idList
         })

@@ -39,24 +39,30 @@ export default {
           method: 'get'
         })
       },
-      saveAssign(userId, roleId){
+      saveAssign(userId, roleIds){
         return request({
-          url: `${api_name}/doAssign`,
+          url: `${api_name}/doAssign/${userId}`,
           method: 'post',
-          params:{userId, roleId}
+          data:roleIds,
+          header:{
+            'Content-Type':'application/json'
+          }
         })
       },
       removeById(id){
         return request({
-          url: `${api_name}/remove/${id}`,
+          url: `${api_name}/delete/${id}`,
           method: 'delete'
         })
       },
       removeRows(idList){
         return request({
-          url: `${api_name}/batchRemove`,
+          url: `${api_name}/delete/batch`,
           method: 'delete',
-          data:idList
+          data:idList,
+          header:{
+            'Content-Type':'application/json'
+          }
         })
       }
 }

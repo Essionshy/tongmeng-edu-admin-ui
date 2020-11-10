@@ -3,12 +3,12 @@
     <!-- 查询条件 -->
     <el-form :inline="true" :model="bannerQuery" class="demo-form-inline">
       <el-form-item label="标题">
-        <el-input v-model="bannerQuery.name" placeholder="标题"></el-input>
+        <el-input v-model="bannerQuery.title" placeholder="姓名"></el-input>
       </el-form-item>
-      <el-form-item label="级别">
-        <el-select v-model="bannerQuery.level" placeholder="讲师级别">
-          <el-option label="特级讲师" value="0"></el-option>
-          <el-option label="一级讲师" value="1"></el-option>
+      <el-form-item label="状态">
+        <el-select v-model="bannerQuery.isDeleted" placeholder="请选择状态">
+          <el-option label="正常" value="false"></el-option>
+          <el-option label="删除" value="true"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -32,20 +32,31 @@
       </el-table-column>
       <el-table-column label="标题" width="110" align="center">
         <template slot-scope="scope">
-          {{ scope.row.name }}
+          {{ scope.row.title }}
         </template>
       </el-table-column>
-      <el-table-column label="排序" width="110" align="center">
+      <el-table-column label="图片地址" width="110" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.sort }}</span>
+          <span>{{ scope.row.imageUrl }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="来源" width="110" align="center">
+      <el-table-column label="链接地址" width="110" align="center">
         <template slot-scope="scope">
-          {{ scope.row.imageUrl }}
+          {{ scope.row.linkUrl }}
         </template>
       </el-table-column>
-     
+      <el-table-column
+        class-name="status-col"
+        label="状态"
+        width="110"
+        align="center"
+      >
+        <template slot-scope="scope">
+          <el-tag :title="scope.row.deleted | statusFilter">{{
+            scope.row.deleted == 0 ? "正常" : "删除"
+          }}</el-tag>
+        </template>
+      </el-table-column>
       <el-table-column
         align="center"
         prop="created_at"
@@ -60,7 +71,7 @@
 
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <router-link :to="'/resource/banner/edit/'+scope.row.id">
+          <router-link :to="'/rms/banner/update/' + scope.row.id">
             <el-button type="primary" icon="el-icon-edit" size="mini"
               >编辑</el-button
             >
@@ -109,8 +120,8 @@ export default {
       limit: 10,
       total: 0,
       bannerQuery: {
-        name: ""
-        
+        title: "",
+        isDeleted: '',
       },
     };
   },
@@ -121,7 +132,8 @@ export default {
   methods: {
     handleDelete(index, row) {
       console.log(index, row);
-      bannerApi.deleteBanner(row.id)
+      bannerApi
+        .deleteBanner(row.id)
         .then((response) => {
           //删除成功
           if (response.success) {
@@ -138,11 +150,13 @@ export default {
     fetchData() {
       this.listLoading = true;
 
-      bannerApi.getBannerList(this.page, this.limit, this.bannerQuery)
+      bannerApi
+        .getBannerList(this.page, this.limit, this.bannerQuery)
         .then((response) => {
           //请求成功
           this.list = response.data.bannerList;
           this.total = response.data.total;
+
           console.log(response);
           this.listLoading = false;
         })

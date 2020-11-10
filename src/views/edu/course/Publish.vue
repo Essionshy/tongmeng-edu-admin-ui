@@ -53,7 +53,7 @@ export default {
       });
     },
     prev() {
-      this.$router.push({ path: "/course/chapter/"+this.courseId });
+      this.$router.push({ path: "/edu/course/chapter/"+this.courseId });
     },
     //发布课程
     publish() {
@@ -64,7 +64,7 @@ export default {
         })
       })
       //跳转课程列表
-     this.$router.push({path:'/course/list'})
+     this.$router.push({path:'/edu/course/list'})
      
     },
   },

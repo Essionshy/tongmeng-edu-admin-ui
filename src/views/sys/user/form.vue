@@ -125,7 +125,7 @@ export default {
     fetchDataById(id) {
       userApi.getById(id).then(response => {
         debugger
-        this.user = response.data.item
+        this.user = response.data.user
       })
     }
 

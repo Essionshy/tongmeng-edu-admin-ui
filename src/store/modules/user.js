@@ -58,9 +58,10 @@ const user = {
             reject('getInfo: roles must be a non-null array !')
           }
           const buttonAuthList = []
-          data.permissionList.forEach(button => {
+          data.permissionValueList.forEach(button => {
             buttonAuthList.push(button)
           })
+          console.log(buttonAuthList)
 
           //保存用户信息
           commit('SET_NAME', data.userInfo.username)
